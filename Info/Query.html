@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimaXtreme | query</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="query.css">
+</head>
+
+<body>
+    <!-- 顶栏：标题 + 搜索栏 + 导航标 -->
+    <header class="header">
+        <!-- 添加了页面主标题 -->
+        <h1 class="header-title">灾难数据查询系统/Info</h1>
+        <div class="top-bar">
+            
+            <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <br>
+    
+
+    <!-- 侧边：导航栏 -->
+    <div class="sidebar">
+        <!-- 修改了链接文本以匹配截图风格 -->
+        <a href="../Home/Home.html"><i class="fa-solid fa-home"></i>主页 / Home</a>
+        <a href="../Data/Data.html"><i class="fa-solid fa-chart-line"></i>数据 / Data</a>
+        <a href="../Method/Method.html"><i class="fa-solid fa-shield"></i>措施 / Method</a>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <div class="page-container">
+            <div class="left-panel">
+                <div class="error-container" id="errorContainer"></div>
+                <div class="search-container-left">
+                    <div class="search-group">
+                        <label>查询所有灾难数据</label>
+                        <button id="getAllBtn">获取全部数据</button>
+                    </div>
+                    <div class="search-group">
+                        <label>按灾害编号查询（如：2012-0173-CHN）</label>
+                        <br>
+                        <input type="text" id="disNoInput" placeholder="输入DisNo.">
+                        <br>
+                        <br>
+                        <button id="getByDisNoBtn">查询</button>
+                    </div>
+                    <div class="search-group">
+                        <label>按开始年份查询（如：2000-2025）</label>
+                        <br>
+                        <input type="text" id="yearInput" placeholder="输入年份">
+                        <br>
+                        <br>
+                        <button id="getByYearBtn">查询</button>
+                    </div>
+                    <div class="search-group">
+                        <label>按地址查询（如：guangdong）</label>
+                        <br>
+                        <input type="text" id="locationInput" placeholder="输入地址关键词">
+                        <br>
+                        <br>
+                        <button id="getByLocationBtn">查询</button>
+                    </div>
+                    <div class="search-group">
+                        <label>按灾害类型查询（如：Flood）</label>
+                        <br>
+                        <input type="text" id="typeInput" placeholder="输入灾害类型">
+                        <br>
+                        <br>
+                        <button id="getByTypeBtn">查询</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="result-container">
+                    <div class="empty-tip" id="emptyTip">暂无匹配数据</div>
+                    <div class="table-wrapper">
+                        <table class="result-table" id="resultTable">
+                            <thead>
+                                <tr>
+                                    <th>灾害编号</th>
+                                    <th>灾害类型</th>
+                                    <th>国家</th>
+                                    <th>发生地点</th>
+                                    <th>开始年份</th>
+                                    <th>总损失(千美元)</th>
+                                    <th>受影响人数</th>
+                                    <th>震级</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="query.js"></script>
+
+    <!-- 添加了用于控制侧边栏菜单的JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.querySelector('.menu-btn');
+            const sidebar = document.querySelector('.sidebar');
+
+            menuBtn.addEventListener('click', function () {
+                sidebar.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

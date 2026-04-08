@@ -1,0 +1,313 @@
+/* ====== 全局和基础样式 ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+}
+
+body {
+    background-color: #121b59;
+    padding: 28px;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    color: #fff; /* 将默认文字颜色设为白色 */
+}
+
+/* ====== 顶部栏样式 (重点修改) ====== */
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  position: relative;
+}
+header h1 { 
+  margin: 0;
+  white-space: nowrap;
+}
+
+.top-bar {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.search-container {
+  max-width: 150px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+
+
+/* ====== 侧边导航栏 (重点修改) ====== */
+.sidebar {
+    position: fixed;
+    top: 80px; /* 调整到菜单按钮下方 */
+    right: 28px;
+    width: 220px; /* 适当加宽 */
+    background-color: rgba(48, 104, 188, 0.2); /* 调整为带蓝色调的半透明背景 */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 15px 0;
+    transform: scale(0);
+    transform-origin: top right;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar.active {
+    transform: scale(1);
+}
+
+.sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    padding: 12px 25px;
+    font-family: "SimHei", "黑体", sans-serif;
+    transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+    padding-left: 35px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar a i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+}
+
+
+/* ====== 主内容区样式 (重点修改) ====== */
+.page-title {
+    text-align: left; /* 标题居左 */
+    color: #fff; /* 标题改为白色 */
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.page-container {
+    display: flex;
+    gap: 28px;
+    height: calc(100vh - 180px); /* 调整高度以适应新的顶部栏 */
+}
+
+.left-panel, .right-panel {
+    background-color: rgba(48, 104, 188, 0.2); /* 统一面板背景 */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 18px;
+    padding: 28px;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-panel {
+    width: 25%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 减小内部间隙 */
+}
+
+.right-panel {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0; /* 右侧面板padding由内部容器控制 */
+}
+
+/* 左侧查询面板 */
+.search-container-left {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-group label {
+    font-weight: 600;
+    color: #fff; /* 标签文字改为白色 */
+    font-size: 15px;
+}
+
+.search-group input {
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    font-size: 14px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* 输入框暗色背景 */
+    color: #fff; /* 输入文字为白色 */
+}
+
+.search-group input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-group button {
+    padding: 10px 15px;
+    background-color: #3d6def; /* 按钮颜色调整 */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.search-group button:hover {
+    background-color: #5d89ff;
+    transform: translateY(-2px);
+}
+
+/* 右侧结果表格 */
+.result-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 18px;
+    overflow: hidden; /* 确保子元素不会超出圆角范围 */
+}
+
+.table-wrapper {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse; /* 改为collapse以更好地控制边框 */
+}
+
+.result-table th, .result-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* 边框颜色变浅 */
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-table th {
+    background-color: rgba(0, 0, 0, 0.2); /* 表头背景色 */
+    color: #fff;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.result-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* 悬停高亮 */
+}
+
+.result-table td.data-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; /* 固定宽度，可根据实际调整 */
+    min-width: 300px;
+}
+
+.result-table td.data-cell.expanded {
+    white-space: normal;
+    word-break: break-all;
+    max-width: none;
+    overflow: visible;
+}
+
+.expand-btn {
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: #3d6def;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.expand-btn:hover {
+    background-color: #5d89ff;
+}
+
+.empty-tip {
+    padding: 30px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    flex-grow: 1;
+    display: none; /* 初始隐藏 */
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .page-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+    }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClimaXtreme | Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/Home/home_style.css">
+</head>
+<body>
+  <!-- 顶栏：搜索栏 + 导航标 -->
+  <header>
+    <div class="top-bar">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索 / Search..." readonly>
+      </div>
+      <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- 侧边：导航栏 -->
+  <div class="sidebar">
+    <a href="../Info/Query.html"><i class="fa-solid fa-newspaper"></i>查询 / Info</a>
+    <a href="../Data/Data.html"><i class="fa-solid fa-chart-line"></i>数据 / Data</a>
+    <a href="../Method/Method.html"><i class="fa-solid fa-shield"></i>措施 / Method</a>
+  </div>
+
+  <!-- 遮罩层 -->
+  <!-- <div class="cover"></div> -->
+  <!-- <div class="back"></div> -->
+
+  <!-- 网站名称（重要！！！） -->
+  <main>
+    <h1 class="title">ClimaXtreme</h1>
+  </main>
+
+  <!-- 底栏：天气信息 -->
+  <footer>
+    <div class="weather-info">
+
+      <div class="weather-item">
+        <!-- 在 HTML 中渲染一个实心地图标记图标 -->
+        <i class="fa-solid fa-map-marker"></i>
+        <span id="location">正在获取位置...</span>
+      </div>
+
+      <div class="weather-item">
+        <i class="fa-solid fa-thermometer-half"></i>
+        <span id="temp">--</span>
+      </div>
+
+      <div class="weather-item">
+        <i class="fa-solid fa-tint"></i>
+        <span id="humidity">--</span>
+      </div>
+
+      <div class="weather-item">
+        <i class="fa-solid fa-cloud"></i>
+        <span id="condition">--</span>
+      </div>
+
+      <div class="weather-item">
+        <i class="fa-solid fa-map-marker"></i>
+        <span id="high-low">-- --</span>
+      </div>
+      
+      <div class="weather-item">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="search-input-footer" placeholder="搜索城市..." maxlength="30">
+      </div>
+      
+    </div>
+  </footer>
+
+  <!-- ai对话框的设计 -->
+  <div class="modal" id="ai-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>极端天气知识问答</h2>
+      <p>您好！我是您的极端天气智能助手。您可以问我任何关于极端天气的问题，比如：</p>
+      <ul>
+        <li>如何预防台风？</li>
+        <li>遇到暴雨应该怎么办？</li>
+        <li>高温天气需要注意什么？</li>
+        <li>沙尘暴来临时如何保护自己？</li>
+      </ul>
+      <br>
+      <p>请输入您的问题：</p>
+      <input type="text" id="ai-input" placeholder="例如：遇到洪水该怎么办？">
+      <button id="submit-ai">提问</button>
+      <div class="results" id="ai-results"></div>
+    </div>
+  </div>
+
+
+  <script src="/Home/home_js.js"></script>
+</body>
+</html>
