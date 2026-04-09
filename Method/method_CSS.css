@@ -1,0 +1,727 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ALL 样式 */
+body {
+  font-family: "Microsoft Yahei", sans-serif;
+  color: #ffffff;
+  background-color: #121b59;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* 导航链接样式 */
+.sidebar {
+  position: fixed;
+  top: 70px; /* 调整到菜单按钮下方 */
+  right: 28px; /* 靠右显示 */
+  width: 200px; /* 小卡片宽度 */
+  background-color: rgba(255, 255, 255, 0.2); /* 降低不透明度以便看到磨砂效果 */
+  backdrop-filter: blur(2px); /* 磨砂玻璃效果 - 模糊程度 */
+  -webkit-backdrop-filter: blur(2px); /* Safari 浏览器兼容 */
+  border-radius: 18px; /* 圆角 */
+  box-shadow: 0 5px 15px rgba(48, 104, 188, 0.3);
+  z-index: 1000;
+  padding: 15px 0; /* 内部间距 */
+  transform: scale(0); /* 初始状态：缩放为0（隐藏） */
+  transform-origin: top right; /* 扩散原点：右上角（菜单按钮位置） */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 扩散动画曲线 */
+  border: 0.5px solid rgba(255, 255, 255, 0.2); /* 细边框磨砂效果 */
+}
+
+/* 激活状态：扩散显示 */
+.sidebar.active {
+  transform: scale(1); /* 缩放为1（显示） */
+  opacity: 10; /* 完全不透明 */
+}
+
+/* 导航链接样式调整 */
+.sidebar a {
+  display: block;
+  color: #fff;
+  
+  text-decoration: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  padding: 12px 20px; /* 减小内边距适应小卡片 */
+  font-family: "SimHei", "黑体", sans-serif;
+  transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+  padding-left: 35px;
+}
+
+.sidebar a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* 菜单按钮样式 */
+.menu-btn {
+  background: transparent; /* 恢复透明背景 */
+  border: none; /*去掉边框 */
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease; /*  hover 缩放动画 */
+  /* 移除磨砂玻璃效果 */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.menu-btn:hover {
+  transform: scale(1.2);
+}
+
+/* 顶部栏样式 */
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;  /* 取消原有15px margin，由weather-tags的margin-top控制间距 */
+  position: relative;
+}
+
+.top-bar .content-title { /* .top-bar 的子元素，权重更高 */
+  margin: 0;
+  transform: translateY(6px);
+  padding-left: 90px;
+  font-size: 30px;
+  font-family: "Microsoft Yahei", sans-serif; 
+  font-weight: 600;  /* 字体！！！ */
+  src: url('安景臣毛笔行书.TTF');
+  /* !important 排除覆盖，确保显示的色彩 */
+  color: #fff !important; 
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  /* 推走搜索栏 */
+  margin-right: auto !important; 
+}
+
+.top-bar {
+  display: flex;
+  gap: 15px; /* 搜索栏和图标的间距 */
+  width: 100%; /* 顶栏撑满屏幕 */
+  justify-content: flex-end; /* 不影响标题，仅控制右侧元素默认靠右 */
+  align-items: center; /* 所有元素垂直居中，避免标题上下偏移 */
+}
+
+.content-title {
+  margin: 0; /* 清除默认段落边距 */
+  padding-left: 10px; /* 左侧留一点空隙 */
+  font-size: 18px;
+  font-family: "Microsoft Yahei", sans-serif;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  margin-right: auto; /* 自动填充标题右侧空间，把搜索栏+图标“推到”右边 */
+}
+
+.container {
+  width: 100%; /* 撑满屏幕宽度 */
+  display: flex; /* 与body的flex方向一致，让header正常排列 */
+  flex-direction: column; /* 和body一致，确保顶栏垂直排列 */
+}
+
+.search-container {
+  max-width: 150px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2); /* 半透明bg */
+  backdrop-filter: blur(2px); /* 磨砂玻璃效果 */
+  -webkit-backdrop-filter: blur(2px); /* Safari 兼容 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: #fff; /* 确保文字颜色与背景对比 */
+  border: 0.5px solid rgba(255, 255, 255, 0.3); /* 添加细边框增强效果 */
+}
+
+/* 为搜索框添加占位符样式，使其在磨砂背景下更清晰 */
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.home-link {
+  display: inline-block;
+}
+
+.home-icon {
+  width: 40px;
+  height: 36px;
+  transform: scale(0.8); /* 缩小到原尺寸的 90% */
+  transition: transform 0.3s ease; /*  hover 缩放动画 */
+}
+
+.home-icon:hover {
+  transform: scale(1.03);
+}
+
+.content-search input {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.2); /* 半透明搜索框 */
+  color: #fff;
+  outline: none;
+}
+
+
+/* 并排竖条标签 */
+.weather-tags {
+  display: flex;
+  gap: 12px; /* 标签间最小间距 */
+  padding: 0 85px; /* 左右边距 = 标题左侧边距 */
+  width: 100%;
+  max-width: 100%; /* 取消宽度限制，撑满屏幕 */
+  margin: 66px auto 60px; /* 上距页眉，下距底边 */
+  z-index: 10;
+  position: relative;
+  box-sizing: border-box; /* 确保padding不撑大宽度 */
+  justify-content: space-between; /* 标签均匀分布 */
+}
+
+/* 标签弹性适配，平分容器宽度 */
+.tag-item {
+  flex: 1 1 auto; 
+  min-width: 80px; 
+  height: 698px; 
+  border-radius: 18px;
+  padding: 80px 10px;
+  color: white;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tag-item.hidden {
+  display: none;
+}
+
+.tag-item.active.moved {
+  /* fixed 与遮罩层对齐 */
+  min-width: auto !important; /* 取消最小宽度限制 */
+  height: auto !important; /* 取消固定高度，用 top/bottom 控制 */
+  position: fixed !important; /* 与遮罩层一致的 fixed 定位 */
+
+  padding: 0 !important; /* 清除内边距，下层仅作背景，不需要 padding） */
+  color: transparent !important; /* 彻底隐藏文字，问AI说比 font-size:0 行 */
+  z-index: 90; /* 确保在遮罩层（z-index:100）下方 */
+  border: none !important; /* 清除边框，避免缝隙 */
+  box-shadow: none; /* 清除阴影，避免视觉错位 */
+}
+
+.tag-item.active.moved p,
+.tag-item.active.moved small {
+  display: none !important; /* 直接隐藏文字元素 */
+}
+
+.tag-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.tag-item p, .tag-item small {
+  position: relative;
+  z-index: 2;
+}
+
+.tag-item p {
+  font-size: 24px;
+  margin-bottom: 5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.tag-item small {
+  font-size: 12px;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.tag-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tag-item.active {
+  transform: scale(1.05);
+}
+
+/* text遮罩层 */
+.text {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%); /* 水平居中基准 */
+  right: auto;
+  width: 90%; /* 宽度基准：与下层保持一致 */
+  max-width: 1000px; /* 最大宽度基准：与下层保持一致 */
+  margin: 0;
+  z-index: 100; /* 确保在上层 */
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 0.5px solid rgba(134, 134, 134, 0);
+  border-radius: 18px !important; /* 圆角基准：与下层保持一致 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 30px; /* 内边距基准：后续断点统一调整 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  min-height: auto !important;
+  height: auto !important;
+  overflow: auto !important;
+  box-sizing: border-box !important; /* 确保 padding 不影响宽度 */
+}
+
+
+.text.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* 措施列表 */
+.method-list {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 20px !important;
+  margin: 0 0 30px !important;
+  display: block !important;
+  position: relative;
+  z-index: 101;
+  color: #fff !important;
+  font-size: 20px;
+  line-height: 2.2;
+  word-wrap: break-word !important;
+  word-break: normal !important;
+  white-space: normal !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  visibility: inherit !important;
+  opacity: inherit !important;
+}
+
+.method-list li {
+  transform: translateY(50px);
+  opacity: 0;
+  list-style-position: inside !important;
+  margin-bottom: 15px;
+  padding-left: 10px;
+  max-width: 100%;
+  word-wrap: break-word;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.text.active .method-list li {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 底部链接 */
+.detail-link {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: 90%;
+  max-width: 1000px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1000px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: block;
+  text-align: center;
+  color: #fff !important;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 12px 20px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.detail-link:hover {
+  color: #f0f0f0 !important;
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+
+/* 对话框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #121b59;
+
+  position: absolute;/* 使用绝对定位 */
+  top: 50%;/* 垂直居中 */
+  left: 50%;/* 水平居中 */
+  transform: translate(-50%, -50%);/* 通过平移实现真正的居中 */
+
+  padding: 30px;/* 增加内边距 */
+  border-radius: 18px;/* 圆角 */
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 800px;
+  backdrop-filter: blur(2px);/* 磨砂玻璃效果 */
+  -webkit-backdrop-filter: blur(2px);/* 兼容 Safari */
+  color: white;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.close:hover,
+.close:focus {
+  color: white;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+}
+
+#disaster-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+#disaster-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#submit-query {
+  width: 100%;
+  padding: 12px;
+  background-color: #4e6ef2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#submit-query:hover {
+  background-color: #3a56e0;
+}
+
+
+
+/* 查询结果框的样式 */
+#query-results {
+  margin-top: 20px;/* 顶部间距 */
+  margin-bottom: 20px;/* 底部间距 */
+  padding: 10px 15px 10px 10px;/* 内边距调整 */
+  max-height: 300px; 
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* 结果框内的标题 */
+#query-results h3 {
+  margin: 0 0 15px 5px;
+  font-size: 18px;
+  color: white;
+}
+
+/* 结果列表 */
+#query-results ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#query-results li {
+  margin-bottom: 10px;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+#query-results li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 结果链接 */
+#query-results a {
+  color: #87CEFA; /* 天蓝色，更清晰 */
+  text-decoration: none;
+  display: block;
+}
+
+#query-results a:hover {
+  text-decoration: underline;
+}
+
+/* 解析失败时，预格式化文本的样式 */
+#query-results pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 4px;
+  color: #f0f0f0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* 加载中和无结果的提示信息 */
+#query-results .loading,
+#query-results .no-results {
+  text-align: center;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 自定义美化滚动条 (适用于Chrome/Safari等) */
+#query-results::-webkit-scrollbar {
+  width: 8px;
+}
+#query-results::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+#query-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+#query-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+/* --- MODIFIED SECTION END --- */
+
+
+
+/* 链接容器样式 */
+.links-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: none;
+}
+
+.links-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: white;
+  text-align: center;
+}
+
+.links-container .link-item {
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #87CEFA;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.links-container .link-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  text-decoration: underline;
+}
+
+.links-container .link-item:last-child {
+  margin-bottom: 0;
+}
+
+
+/* 响应式小屏幕 */
+@media (max-width: 768px) {
+  .weather-tags {
+    flex-wrap: wrap;
+    padding: 0 16px;
+    margin: 40px auto 40px;
+  }
+  
+  .tag-item {
+    min-width: 100px;
+    height: 320px;
+  }
+  
+  .text {
+    top: 100px;
+    bottom: 100px;
+    padding: 30px 20px;
+  }
+  
+  .tag-item.active.moved {
+    top: 118px !important;
+    bottom: 118px !important;
+    width: 88% !important;
+    max-width: none !important;
+    border-radius: 18px !important;
+  }
+  
+  .method-list {
+    font-size: 16px;
+    line-height: 3;
+  }
+  
+  .top-bar .content-title {
+    padding-left: 20px;
+    font-size: 24px;
+  }
+  
+  .search-container {
+    max-width: 120px;
+  }
+  
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+ /* 中屏 */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .weather-tags {
+    padding: 0 40px; /* 左右边距比小屏宽、比大屏窄，适配中屏 */
+    margin: 60px auto 50px; /* 上下间距过渡 */
+    gap: 8px; /* 标签间距缩小，避免挤压 */
+  }
+  
+  .text {
+    top: 120px !important; /* 垂直位置：介于小屏（100px）和大屏（160px）之间 */
+    bottom: 110px !important; 
+    width: 92% !important; /* 宽度比大屏宽一点（92%），适配中屏视野 */
+    max-width: 800px !important; /* 最大宽度比大屏小（800px），避免超出中屏 */
+    padding: 35px 30px !important; /* 内边距过渡 */
+    border-radius: 18px !important;
+  }
+  
+  .tag-item.active.moved {
+    top: 120px !important; /* 与遮罩层 top 一致 */
+    bottom: 110px !important; /* 与遮罩层 bottom 一致 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 92% !important; /* 与遮罩层宽度一致 */
+    max-width: 800px !important; /* 与遮罩层最大宽度一致 */
+    border-radius: 18px !important;
+    background-size: cover !important; /* 确保背景填充完整 */
+  }
+  
+  .method-list {
+    font-size: 16px;
+    line-height: 2.3; /* 行高过渡，避免内容溢出 */
+    padding-left: 25px !important; /* 内边距适配遮罩层 */
+  }
+  
+  .top-bar .content-title {
+    padding-left: 40px; /* 左边距过渡（小屏20px → 中屏40px → 大屏85px） */
+    font-size: 28px; /* 字体大小过渡 */
+  }
+}
+
+  /* 大屏 */
+@media (min-width: 1200px) {
+  .text {
+    top: 160px; /* 垂直顶部偏移：与下层完全一致 */
+    bottom: 130px; /* 垂直底部偏移：与下层完全一致 */
+    padding: 40px 50px; /* 内边距固定，确保内容不溢出 */
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 18px;
+  }
+  
+  /* 2. 下层 active.moved 标签参数与遮罩层完全匹配 */
+  .tag-item.active.moved {
+    top: 160px; /* 与遮罩层 top 一致 */
+    bottom: 130px; /* 与遮罩层 bottom 一致 */
+    left: 50%; /* 与遮罩层 left 一致 */
+    transform: translateX(-50%); /* 与遮罩层水平居中一致 */
+    width: 90%; /* 与遮罩层宽度一致 */
+    max-width: 1000px; /* 与遮罩层最大宽度一致 */
+    border-radius: 18px; /* 与遮罩层圆角一致 */
+    /* 背景确保填充完整 */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* 3. 措施列表适配（确保内容在遮罩层内） */
+  .method-list {
+    font-size: 16px;
+    line-height: 2.5; /* 调整行高，避免内容溢出 */
+    padding-left: 30px; /* 与遮罩层内边距匹配 */
+  }
+  
+  /* 4. 标签基础样式（非激活态）适配大屏 */
+  .tag-item {
+    height: 698px; /* 保持原大屏高度 */
+  }
+}

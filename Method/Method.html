@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClimaXtreme | Method</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/Method/method_CSS.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 顶栏：搜索栏 + 返回首页 -->
+    <header>
+      <div class="top-bar">
+        <p class="content-title">措施 / Method</p>
+       
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+
+    <div class="sidebar">
+      <!-- 修改了链接文本以匹配截图风格 -->
+      <a href="../Home/Home.html"><i class="fa-solid fa-home"></i>主页 / Home</a>
+      <a href="../Data/Data.html"><i class="fa-solid fa-chart-line"></i>数据 / Data</a>
+      <a href="../Info/Query.html"><i class="fa-solid fa-newspaper"></i>查询 / info</a>
+    </div>
+
+    <!-- 并排竖条标签区 -->
+    <div class="weather-tags">
+      <div class="tag-item" data-bg="1.png" data-type="rain">
+        <p>暴雨</p>
+        <small>/Rainstorm</small>
+      </div>
+      <div class="tag-item" data-bg="2.png" data-type="temp">
+        <p>高温</p>
+        <small>/Scorching</small>
+      </div>
+      <div class="tag-item" data-bg="3-1.png" data-type="typhoon">
+        <p>台风</p>
+        <small>/Typhoon</small>
+      </div>
+      <div class="tag-item" data-bg="4.png" data-type="freezing">
+        <p>寒潮</p>
+        <small>/Freezing</small>
+      </div>
+      <div class="tag-item" data-bg="5.png" data-type="convection">
+        <p>强对流</p>
+        <small>/Convection</small>
+      </div>
+      <div class="tag-item" data-bg="6.png" data-type="dry">
+        <p>干旱</p>
+        <small>/Dry</small>
+      </div>
+      <div class="tag-item" data-bg="7.png" data-type="sandstorm">
+        <p>沙尘暴</p>
+        <small>/Sandstorm</small>
+      </div>
+    </div>
+
+    <!-- 内容展开栏 -->
+    <div class="text">
+      <div class="text-title">
+        <div class="title-bg"></div>
+      </div>
+      <ul class="method-list">
+        <!-- JS 动态填充措施内容 -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- 链接放在container外，作为独立固定元素 -->
+  <a href="../Info/Info.html" class="detail-link">点击查看相关资讯/ Click to view news  >>></a>
+
+  <!-- 对话框 -->
+  <div class="modal" id="info-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>查询灾害信息</h2>
+      <p>请输入您想查询的灾害类型新闻：</p>
+      <p>例如:暴雨,高温,台风等</p>
+      <input type="text" id="disaster-input" placeholder="">
+      <button id="submit-query">查询</button>
+      <div class="results" id="query-results"></div>
+
+      <!-- 添加链接容器 -->
+      <div class="links-container" id="links-container"></div>
+    </div>
+  </div>
+
+  <script src="/Method/method_js.js"></script>
+</body>
+</html>
